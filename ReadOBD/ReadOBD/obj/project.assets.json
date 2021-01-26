@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\saidburakguzel\\Projects\\Practice\\C#\\OBD2_read\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
+      "projectUniqueName": "D:\\saidburakguzel\\Projects\\Works\\C#\\VirtualDyno\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
       "projectName": "ReadOBD",
-      "projectPath": "D:\\saidburakguzel\\Projects\\Practice\\C#\\OBD2_read\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
+      "projectPath": "D:\\saidburakguzel\\Projects\\Works\\C#\\VirtualDyno\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
       "packagesPath": "C:\\Users\\saidb\\.nuget\\packages\\",
-      "outputPath": "D:\\saidburakguzel\\Projects\\Practice\\C#\\OBD2_read\\ReadOBD\\ReadOBD\\obj\\",
+      "outputPath": "D:\\saidburakguzel\\Projects\\Works\\C#\\VirtualDyno\\ReadOBD\\ReadOBD\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\saidb\\AppData\\Roaming\\NuGet\\NuGet.Config",

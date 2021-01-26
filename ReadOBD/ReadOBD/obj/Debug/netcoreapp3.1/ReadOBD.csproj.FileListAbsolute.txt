@@ -11,3 +11,16 @@ D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\ReadOBD\obj\Debug\netco
 D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.dll
 D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.pdb
 D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.genruntimeconfig.cache
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\bin\Debug\netcoreapp3.1\ReadOBD.exe
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\bin\Debug\netcoreapp3.1\ReadOBD.deps.json
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\bin\Debug\netcoreapp3.1\ReadOBD.runtimeconfig.json
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\bin\Debug\netcoreapp3.1\ReadOBD.runtimeconfig.dev.json
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\bin\Debug\netcoreapp3.1\ReadOBD.dll
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\bin\Debug\netcoreapp3.1\ReadOBD.pdb
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.csprojAssemblyReference.cache
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.AssemblyInfoInputs.cache
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.AssemblyInfo.cs
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.csproj.CoreCompileInputs.cache
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.dll
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.pdb
+D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\ReadOBD\obj\Debug\netcoreapp3.1\ReadOBD.genruntimeconfig.cache
