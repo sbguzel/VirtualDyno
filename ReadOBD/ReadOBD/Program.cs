@@ -7,269 +7,191 @@ namespace ReadOBD
         static void Main(string[] args)
         {
             String[] lines;
-            int[] speed_kph = new int[5000];
-            int[] rpm = new int[5000];
-            int[] fuel_rail_gauge_pressure = new int[5000];
-            int[] egr_percent = new int[5000];
-            int[] speed_time = new int[5000];
-            int[] rpm_time = new int[5000];
-            int[] fuel_rail_gauge_pressure_time = new int[5000];
-            int[] egr_time = new int[5000];
+            lines = System.IO.File.ReadAllLines(@"D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\OBD_Log.txt");
 
+            Read_obd(249, "010D", lines);   //Speed                          [km/h]
+            Read_obd(249, "010C", lines);   //rpm                            [rev/min]
+            Read_obd(249, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
+            Read_obd(249, "012C", lines);   //EGR                            [percent] (target)
+            Read_obd(249, "0105", lines);   //Coolent Temperature            [celcius]
+            Read_obd(249, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
+            Read_obd(249, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
+            Read_obd(249, "010F", lines);   //Intake Air Temperature         [celcius]
+            Read_obd(249, "0110", lines);   //Mass air flow                  [grams/sec]
+            Read_obd(249, "0104", lines);   //Calculated Engine Load         [percent]
+            Read_obd(249, "0149", lines);   //Accelerator Pedal Position D   [percent]
+            Read_obd(249, "014A", lines);   //Accelerator Pedal Position E   [percent]
+
+        }
+
+        public static void Read_obd(int start_row, string code, string[] lines)
+        {
+            int j = 0;
+            int bytes = 0;
+            int offset = 0;
+            float A_coefficient = 0, B_coefficient = 0;
             string hexA, hexB;
             int A = 0, B = 0;
             string time_string;
             Int32 time_ms = 0, time_ms_diff = 0, time_ms_old = 0;
-            lines = System.IO.File.ReadAllLines(@"D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\OBD_Log.txt");
-            int j = 0;
+            float[] data = new float[5000];
+            int[] data_time = new int[5000];
 
-            //Console.WriteLine(lines.Length.ToString());
+            switch (code)
+            {
+                case "010C":
+                    bytes = 2;
+                    A_coefficient = 64;
+                    B_coefficient = 0.25f;
+                    offset = 0;
+                    break;
 
+                case "010D":
+                    bytes = 1;
+                    A_coefficient = 1;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
 
-            string speed_code = "010D";
-            j = 0;
-            
-            for (int i = 249; i < lines.Length; i++)
+                case "0123":
+                    bytes = 2;
+                    A_coefficient = 2560;
+                    B_coefficient = 10;
+                    offset = 0;
+                    break;
+
+                case "012C":
+                    bytes = 1;
+                    A_coefficient = 0.392157f;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
+
+                case "0105":
+                    bytes = 1;
+                    A_coefficient = 1;
+                    B_coefficient = 0;
+                    offset = -40;
+                    break;
+
+                case "0133":
+                    bytes = 1;
+                    A_coefficient = 1;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
+
+                case "010B":
+                    bytes = 1;
+                    A_coefficient = 1;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
+
+                case "010F":
+                    bytes = 1;
+                    A_coefficient = 1;
+                    B_coefficient = 0;
+                    offset = -40;
+                    break;
+
+                case "0110":
+                    bytes = 2;
+                    A_coefficient = 2.56f;
+                    B_coefficient = 0.01f;
+                    offset = 0;
+                    break;
+
+                case "0104":
+                    bytes = 1;
+                    A_coefficient = 0.392157f;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
+
+                case "0149":
+                    bytes = 1;
+                    A_coefficient = 0.392157f;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
+
+                case "014A":
+                    bytes = 1;
+                    A_coefficient = 0.392157f;
+                    B_coefficient = 0;
+                    offset = 0;
+                    break;
+
+                default:
+                    break;
+            }
+
+            for (int i = start_row; i < lines.Length; i++)
             {
                 if (!string.IsNullOrEmpty(lines[i]))
                 {
                     int length = lines[i].Length;
-                    if(length>12)
+                    if (length > 12)
                     {
                         string temp = lines[i][9].ToString() + lines[i][10].ToString() + lines[i][11].ToString() + lines[i][12].ToString();
-                        if(String.Compare(speed_code, temp) == 0)
+                        if (String.Compare(code, temp) == 0)
                         {
-                            if(!string.IsNullOrEmpty(lines[i+1]))
+                            if (!string.IsNullOrEmpty(lines[i + 1]))
                             {
-                                length = lines[i+1].Length;
-                                if (length >= 23)
+                                length = lines[i + 1].Length;
+                                if (length >= 21 + bytes * 2) 
                                 {
-                                    hexA = lines[i + 1][22].ToString() + lines[i + 1][23].ToString();
-                                    A = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
-                                    speed_kph[j] = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
+                                    if(bytes == 1)
+                                    {
+                                        hexA = lines[i + 1][22].ToString() + lines[i + 1][23].ToString();
+                                        A = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
+                                    }
+                                    else if(bytes == 2)
+                                    {
+                                        hexA = lines[i + 1][22].ToString() + lines[i + 1][23].ToString();
+                                        hexB = lines[i + 1][25].ToString() + lines[i + 1][26].ToString();
+                                        A = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
+                                        B = int.Parse(hexB, System.Globalization.NumberStyles.HexNumber);
+                                    }
                                     
+                                    data[j] = (A * A_coefficient + B * B_coefficient + offset);
+
                                     time_string = lines[i + 1][0].ToString() + lines[i + 1][1].ToString() + lines[i + 1][3].ToString() + lines[i + 1][4].ToString() + lines[i + 1][5].ToString();
                                     time_ms = Int32.Parse(time_string);
 
-
-                                    if(j == 0)
+                                    if (j == 0)
                                     {
-                                        speed_time[j] = time_ms;
+                                        data_time[j] = time_ms;
                                     }
                                     else
                                     {
                                         time_ms_diff = time_ms - time_ms_old;
-                                        if(time_ms_diff < 0)
+                                        if (time_ms_diff < 0)
                                         {
                                             time_ms_diff += 60000;
                                         }
-                                        speed_time[j] = speed_time[j-1] + time_ms_diff;
-                                        
+                                        data_time[j] = data_time[j - 1] + time_ms_diff;
+
                                     }
 
-                                    Console.WriteLine(speed_time[j] + " " +speed_kph[j]);
+                                    Console.WriteLine(data_time[j] + " " + data[j]);
 
                                     time_ms_old = time_ms;
                                     j += 1;
                                 }
-                                
+
                             }
-                            
+
                         }
 
                     }
 
                 }
-                
+
             }
             
-
-            string rpm_code = "010C";
-            j = 0;
-            time_ms_old = 0;
-
-            for (int i = 249; i < lines.Length; i++)
-            {
-                if (!string.IsNullOrEmpty(lines[i]))
-                {
-                    int length = lines[i].Length;
-                    if (length > 12)
-                    {
-                        string temp = lines[i][9].ToString() + lines[i][10].ToString() + lines[i][11].ToString() + lines[i][12].ToString();
-                        if (String.Compare(rpm_code, temp) == 0)
-                        {
-                            if (!string.IsNullOrEmpty(lines[i + 1]))
-                            {
-                                length = lines[i + 1].Length;
-                                if (length >= 26)
-                                {
-                                    hexA = lines[i + 1][22].ToString() + lines[i + 1][23].ToString();
-                                    hexB = lines[i + 1][25].ToString() + lines[i + 1][26].ToString();
-                                    A = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
-                                    B = int.Parse(hexB, System.Globalization.NumberStyles.HexNumber);
-                                    rpm[j] = (256 * A + B)/4;
-
-                                    time_string = lines[i + 1][0].ToString() + lines[i + 1][1].ToString() + lines[i + 1][3].ToString() + lines[i + 1][4].ToString() + lines[i + 1][5].ToString();
-                                    time_ms = Int32.Parse(time_string);
-
-                                    if (j == 0)
-                                    {
-                                        rpm_time[j] = time_ms;
-                                    }
-                                    else
-                                    {
-                                        time_ms_diff = time_ms - time_ms_old;
-                                        if (time_ms_diff < 0)
-                                        {
-                                            time_ms_diff += 60000;
-                                        }
-                                        rpm_time[j] = rpm_time[j - 1] + time_ms_diff;
-
-                                    }
-
-                                    Console.WriteLine(rpm_time[j] + " " + rpm[j]);
-
-                                    time_ms_old = time_ms;
-                                    j += 1;
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-
-
-            string fuel_rail_gauge_pressure_code = "0123";
-            j = 0;
-            time_ms_old = 0;
-
-            for (int i = 249; i < lines.Length; i++)
-            {
-                if (!string.IsNullOrEmpty(lines[i]))
-                {
-                    int length = lines[i].Length;
-                    if (length > 12)
-                    {
-                        string temp = lines[i][9].ToString() + lines[i][10].ToString() + lines[i][11].ToString() + lines[i][12].ToString();
-                        if (String.Compare(fuel_rail_gauge_pressure_code, temp) == 0)
-                        {
-                            if (!string.IsNullOrEmpty(lines[i + 1]))
-                            {
-                                length = lines[i + 1].Length;
-                                if (length >= 26)
-                                {
-                                    hexA = lines[i + 1][22].ToString() + lines[i + 1][23].ToString();
-                                    hexB = lines[i + 1][25].ToString() + lines[i + 1][26].ToString();
-                                    A = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
-                                    B = int.Parse(hexB, System.Globalization.NumberStyles.HexNumber);
-                                    fuel_rail_gauge_pressure[j] = (256 * A + B) * 10;
-
-                                    time_string = lines[i + 1][0].ToString() + lines[i + 1][1].ToString() + lines[i + 1][3].ToString() + lines[i + 1][4].ToString() + lines[i + 1][5].ToString();
-                                    time_ms = Int32.Parse(time_string);
-
-                                    if (j == 0)
-                                    {
-                                        fuel_rail_gauge_pressure_time[j] = time_ms;
-                                    }
-                                    else
-                                    {
-                                        time_ms_diff = time_ms - time_ms_old;
-                                        if (time_ms_diff < 0)
-                                        {
-                                            time_ms_diff += 60000;
-                                        }
-                                        fuel_rail_gauge_pressure_time[j] = fuel_rail_gauge_pressure_time[j - 1] + time_ms_diff;
-
-                                    }
-
-                                    Console.WriteLine(fuel_rail_gauge_pressure_time[j] + " " + fuel_rail_gauge_pressure[j]);
-
-                                    time_ms_old = time_ms;
-                                    j += 1;
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-            
-            string EGR_code = "012C";
-            j = 0;
-            time_ms_old = 0;
-
-            for (int i = 249; i < lines.Length; i++)
-            {
-                if (!string.IsNullOrEmpty(lines[i]))
-                {
-                    int length = lines[i].Length;
-                    if (length > 12)
-                    {
-                        string temp = lines[i][9].ToString() + lines[i][10].ToString() + lines[i][11].ToString() + lines[i][12].ToString();
-                        if (String.Compare(EGR_code, temp) == 0)
-                        {
-                            if (!string.IsNullOrEmpty(lines[i + 1]))
-                            {
-                                length = lines[i + 1].Length;
-                                if (length >= 23)
-                                {
-                                    hexA = lines[i + 1][22].ToString() + lines[i + 1][23].ToString();
-                                    A = int.Parse(hexA, System.Globalization.NumberStyles.HexNumber);
-                                    egr_percent[j] = A * 100 / 255;
-
-                                    time_string = lines[i + 1][0].ToString() + lines[i + 1][1].ToString() + lines[i + 1][3].ToString() + lines[i + 1][4].ToString() + lines[i + 1][5].ToString();
-                                    time_ms = Int32.Parse(time_string);
-
-                                    if (j == 0)
-                                    {
-                                        egr_time[j] = time_ms;
-                                    }
-                                    else
-                                    {
-                                        time_ms_diff = time_ms - time_ms_old;
-                                        if (time_ms_diff < 0)
-                                        {
-                                            time_ms_diff += 60000;
-                                        }
-                                        egr_time[j] = egr_time[j - 1] + time_ms_diff;
-
-                                    }
-
-                                    Console.WriteLine(egr_time[j] + " " + egr_percent[j]);
-
-                                    time_ms_old = time_ms;
-                                    j += 1;
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
         }
-
-
-
-        int Read_obd(int start_row, int )
-        {
-
-        }
-
+        
     }
 }
