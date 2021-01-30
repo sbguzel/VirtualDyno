@@ -7,20 +7,20 @@ namespace ReadOBD
         static void Main(string[] args)
         {
             String[] lines;
-            lines = System.IO.File.ReadAllLines(@"D:\saidburakguzel\Projects\Practice\C#\OBD2_read\ReadOBD\OBD_Log.txt");
+            lines = System.IO.File.ReadAllLines(@"D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\raw obd\obd_log.txt");
 
-            Read_obd(249, "010D", lines);   //Speed                          [km/h]
-            Read_obd(249, "010C", lines);   //rpm                            [rev/min]
-            Read_obd(249, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
-            Read_obd(249, "012C", lines);   //EGR                            [percent] (target)
-            Read_obd(249, "0105", lines);   //Coolent Temperature            [celcius]
-            Read_obd(249, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
-            Read_obd(249, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
-            Read_obd(249, "010F", lines);   //Intake Air Temperature         [celcius]
-            Read_obd(249, "0110", lines);   //Mass air flow                  [grams/sec]
-            Read_obd(249, "0104", lines);   //Calculated Engine Load         [percent]
-            Read_obd(249, "0149", lines);   //Accelerator Pedal Position D   [percent]
-            Read_obd(249, "014A", lines);   //Accelerator Pedal Position E   [percent]
+            //Read_obd(249, "010D", lines);   //Speed                          [km/h]
+            //Read_obd(249, "010C", lines);   //rpm                            [rev/min]
+            //Read_obd(249, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
+            //Read_obd(249, "012C", lines);   //EGR                            [percent] (target)
+            //Read_obd(249, "0105", lines);   //Coolent Temperature            [celcius]
+            //Read_obd(249, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
+            //Read_obd(249, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
+            //Read_obd(249, "010F", lines);   //Intake Air Temperature         [celcius]
+            //Read_obd(249, "0110", lines);   //Mass air flow                  [grams/sec]
+            //Read_obd(249, "0104", lines);   //Calculated Engine Load         [percent]
+            //Read_obd(249, "0149", lines);   //Accelerator Pedal Position D   [percent]
+            //Read_obd(249, "014A", lines);   //Accelerator Pedal Position E   [percent]
 
         }
 
@@ -176,6 +176,7 @@ namespace ReadOBD
                                     }
 
                                     Console.WriteLine(data_time[j] + " " + data[j]);
+                                    //Console.WriteLine(data[j]);
 
                                     time_ms_old = time_ms;
                                     j += 1;
