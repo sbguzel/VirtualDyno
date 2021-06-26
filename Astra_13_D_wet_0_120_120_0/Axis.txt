@@ -1,0 +1,6 @@
++Y acc
+-Y dec
++X sağ
+-X sol
++Z Up
+-Z Down
