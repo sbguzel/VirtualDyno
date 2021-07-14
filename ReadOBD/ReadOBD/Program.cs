@@ -7,20 +7,20 @@ namespace ReadOBD
         static void Main(string[] args)
         {
             String[] lines;
-            lines = System.IO.File.ReadAllLines(@"D:\saidburakguzel\Projects\Works\C#\VirtualDyno\ReadOBD\raw obd\obd_log.txt");
+            lines = System.IO.File.ReadAllLines(@"C:\Users\saidb\Documents\MATLAB\VirtualDyno\Astra_13_D_dry_0_120_80_uphill\20210711081746.txt");
 
-            //Read_obd(249, "010D", lines);   //Speed                          [km/h]
-            //Read_obd(249, "010C", lines);   //rpm                            [rev/min]
-            //Read_obd(249, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
-            //Read_obd(249, "012C", lines);   //EGR                            [percent] (target)
-            //Read_obd(249, "0105", lines);   //Coolent Temperature            [celcius]
-            //Read_obd(249, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
-            //Read_obd(249, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
-            //Read_obd(249, "010F", lines);   //Intake Air Temperature         [celcius]
-            //Read_obd(249, "0110", lines);   //Mass air flow                  [grams/sec]
-            //Read_obd(249, "0104", lines);   //Calculated Engine Load         [percent]
-            //Read_obd(249, "0149", lines);   //Accelerator Pedal Position D   [percent]
-            //Read_obd(249, "014A", lines);   //Accelerator Pedal Position E   [percent]
+            Read_obd(40, "010D", lines);   //Speed                          [km/h]
+            Read_obd(40, "010C", lines);   //rpm                            [rev/min]
+            Read_obd(40, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
+            Read_obd(40, "012C", lines);   //EGR                            [percent] (target)
+            Read_obd(40, "0105", lines);   //Coolent Temperature            [celcius]
+            Read_obd(40, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
+            Read_obd(40, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
+            Read_obd(40, "010F", lines);   //Intake Air Temperature         [celcius]
+            Read_obd(40, "0110", lines);   //Mass air flow                  [grams/sec]
+            Read_obd(40, "0104", lines);   //Calculated Engine Load         [percent]
+            Read_obd(40, "0149", lines);   //Accelerator Pedal Position D   [percent]
+            Read_obd(40, "014A", lines);   //Accelerator Pedal Position E   [percent]
 
         }
 
@@ -36,6 +36,8 @@ namespace ReadOBD
             Int32 time_ms = 0, time_ms_diff = 0, time_ms_old = 0;
             float[] data = new float[5000];
             int[] data_time = new int[5000];
+            string indicator = "";
+            bool separate = true;
 
             switch (code)
             {
@@ -44,6 +46,7 @@ namespace ReadOBD
                     A_coefficient = 64;
                     B_coefficient = 0.25f;
                     offset = 0;
+                    indicator = "RPM [rev/min]";
                     break;
 
                 case "010D":
@@ -51,6 +54,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "Speed [km/h]";
                     break;
 
                 case "0123":
@@ -58,6 +62,7 @@ namespace ReadOBD
                     A_coefficient = 2560;
                     B_coefficient = 10;
                     offset = 0;
+                    indicator = "Fuel Rail Pressure [kPa] (gauge)";
                     break;
 
                 case "012C":
@@ -65,6 +70,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "EGR [percent] (target)";
                     break;
 
                 case "0105":
@@ -72,6 +78,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = -40;
+                    indicator = "Coolent Temperature [celcius]";
                     break;
 
                 case "0133":
@@ -79,6 +86,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "Barometric Pressure [kPa] (Absolute)";
                     break;
 
                 case "010B":
@@ -86,6 +94,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "Intake Manifold Pressure [kPa] (Absolute)";
                     break;
 
                 case "010F":
@@ -93,6 +102,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = -40;
+                    indicator = "Intake Air Temperature [celcius]";
                     break;
 
                 case "0110":
@@ -100,6 +110,7 @@ namespace ReadOBD
                     A_coefficient = 2.56f;
                     B_coefficient = 0.01f;
                     offset = 0;
+                    indicator = "Mass air flow [grams/sec]";
                     break;
 
                 case "0104":
@@ -107,6 +118,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "Calculated Engine Load [percent]";
                     break;
 
                 case "0149":
@@ -114,6 +126,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "Accelerator Pedal Position D [percent]";
                     break;
 
                 case "014A":
@@ -121,6 +134,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
+                    indicator = "Accelerator Pedal Position E [percent]";
                     break;
 
                 default:
@@ -175,8 +189,26 @@ namespace ReadOBD
 
                                     }
 
-                                    Console.WriteLine(data_time[j] + " " + data[j]);
-                                    //Console.WriteLine(data[j]);
+                                    string docPath = @"C:\Users\saidb\Documents\MATLAB\VirtualDyno\Astra_13_D_dry_0_120_80_uphill\CleanData.txt";
+                                    if (!File.Exists(docPath))
+                                    {
+                                        if (separate)
+                                        {
+                                            File.WriteAllText(docPath, indicator + "\n");
+                                            separate = false;
+                                        }
+                                        File.AppendAllText(docPath, data_time[j] + " " + data[j] + "\n");
+                                        Console.WriteLine("its OK");
+                                    }
+                                    else
+                                    {
+                                        if (separate)
+                                        {
+                                            File.AppendAllText(docPath, indicator + "\n");
+                                            separate = false;
+                                        }
+                                        File.AppendAllText(docPath, data_time[j] + " " + data[j] + "\n");
+                                    }
 
                                     time_ms_old = time_ms;
                                     j += 1;

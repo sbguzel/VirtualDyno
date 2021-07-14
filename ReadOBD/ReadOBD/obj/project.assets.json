@@ -8,19 +8,24 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\saidb\\.nuget\\packages\\": {}
+    "C:\\Users\\saidb\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\saidburakguzel\\Projects\\Works\\C#\\VirtualDyno\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
+      "projectUniqueName": "C:\\Users\\saidb\\Documents\\MATLAB\\VirtualDyno\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
       "projectName": "ReadOBD",
-      "projectPath": "D:\\saidburakguzel\\Projects\\Works\\C#\\VirtualDyno\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
+      "projectPath": "C:\\Users\\saidb\\Documents\\MATLAB\\VirtualDyno\\ReadOBD\\ReadOBD\\ReadOBD.csproj",
       "packagesPath": "C:\\Users\\saidb\\.nuget\\packages\\",
-      "outputPath": "D:\\saidburakguzel\\Projects\\Works\\C#\\VirtualDyno\\ReadOBD\\ReadOBD\\obj\\",
+      "outputPath": "C:\\Users\\saidb\\Documents\\MATLAB\\VirtualDyno\\ReadOBD\\ReadOBD\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\saidb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
