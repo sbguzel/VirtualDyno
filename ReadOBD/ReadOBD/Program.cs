@@ -46,7 +46,7 @@ namespace ReadOBD
                     A_coefficient = 64;
                     B_coefficient = 0.25f;
                     offset = 0;
-                    indicator = "RPM [rev/min]";
+                    indicator = "RPM,[rev/min]";
                     break;
 
                 case "010D":
@@ -54,7 +54,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "Speed [km/h]";
+                    indicator = "Speed,[km/h]";
                     break;
 
                 case "0123":
@@ -62,7 +62,7 @@ namespace ReadOBD
                     A_coefficient = 2560;
                     B_coefficient = 10;
                     offset = 0;
-                    indicator = "Fuel Rail Pressure [kPa] (gauge)";
+                    indicator = "FuelRailPressure,[kPa](gauge)";
                     break;
 
                 case "012C":
@@ -70,7 +70,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "EGR [percent] (target)";
+                    indicator = "EGR,[percent](target)";
                     break;
 
                 case "0105":
@@ -78,7 +78,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = -40;
-                    indicator = "Coolent Temperature [celcius]";
+                    indicator = "CoolentTemperature,[celcius]";
                     break;
 
                 case "0133":
@@ -86,7 +86,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "Barometric Pressure [kPa] (Absolute)";
+                    indicator = "BarometricPressure,[kPa](Absolute)";
                     break;
 
                 case "010B":
@@ -94,7 +94,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "Intake Manifold Pressure [kPa] (Absolute)";
+                    indicator = "IntakeManifoldPressure,[kPa](Absolute)";
                     break;
 
                 case "010F":
@@ -102,7 +102,7 @@ namespace ReadOBD
                     A_coefficient = 1;
                     B_coefficient = 0;
                     offset = -40;
-                    indicator = "Intake Air Temperature [celcius]";
+                    indicator = "IntakeAirTemperature,[celcius]";
                     break;
 
                 case "0110":
@@ -110,7 +110,7 @@ namespace ReadOBD
                     A_coefficient = 2.56f;
                     B_coefficient = 0.01f;
                     offset = 0;
-                    indicator = "Mass air flow [grams/sec]";
+                    indicator = "MassAirFlow,[grams/sec]";
                     break;
 
                 case "0104":
@@ -118,7 +118,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "Calculated Engine Load [percent]";
+                    indicator = "CalculatedEngineLoad,[percent]";
                     break;
 
                 case "0149":
@@ -126,7 +126,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "Accelerator Pedal Position D [percent]";
+                    indicator = "AcceleratorPedalPositionD,[percent]";
                     break;
 
                 case "014A":
@@ -134,7 +134,7 @@ namespace ReadOBD
                     A_coefficient = 0.392157f;
                     B_coefficient = 0;
                     offset = 0;
-                    indicator = "Accelerator Pedal Position E [percent]";
+                    indicator = "AcceleratorPedalPositionE,[percent]";
                     break;
 
                 default:
@@ -194,20 +194,20 @@ namespace ReadOBD
                                     {
                                         if (separate)
                                         {
-                                            File.WriteAllText(docPath, indicator + "\n");
+                                            File.WriteAllText(docPath, "-1,-1" + "\n");
                                             separate = false;
                                         }
-                                        File.AppendAllText(docPath, data_time[j] + " " + data[j] + "\n");
+                                        File.AppendAllText(docPath, data_time[j] + "," + data[j] + "\n");
                                         Console.WriteLine("its OK");
                                     }
                                     else
                                     {
                                         if (separate)
                                         {
-                                            File.AppendAllText(docPath, indicator + "\n");
+                                            File.AppendAllText(docPath, "-1,-1" + "\n");
                                             separate = false;
                                         }
-                                        File.AppendAllText(docPath, data_time[j] + " " + data[j] + "\n");
+                                        File.AppendAllText(docPath, data_time[j] + "," + data[j] + "\n");
                                     }
 
                                     time_ms_old = time_ms;
