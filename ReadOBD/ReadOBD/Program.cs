@@ -7,20 +7,20 @@ namespace ReadOBD
         static void Main(string[] args)
         {
             String[] lines;
-            lines = System.IO.File.ReadAllLines(@"C:\Users\saidb\Documents\MATLAB\VirtualDyno\Astra_13_D_dry_0_120_80_uphill\20210711081746.txt");
+            lines = System.IO.File.ReadAllLines(@"C:\Users\saidb\Documents\MATLAB\VirtualDyno\Trax_15_P_dry_0_50_up_down\20210719151157.txt");
 
-            Read_obd(40, "010D", lines);   //Speed                          [km/h]
-            Read_obd(40, "010C", lines);   //rpm                            [rev/min]
-            Read_obd(40, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
-            Read_obd(40, "012C", lines);   //EGR                            [percent] (target)
-            Read_obd(40, "0105", lines);   //Coolent Temperature            [celcius]
-            Read_obd(40, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
-            Read_obd(40, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
-            Read_obd(40, "010F", lines);   //Intake Air Temperature         [celcius]
-            Read_obd(40, "0110", lines);   //Mass air flow                  [grams/sec]
-            Read_obd(40, "0104", lines);   //Calculated Engine Load         [percent]
-            Read_obd(40, "0149", lines);   //Accelerator Pedal Position D   [percent]
-            Read_obd(40, "014A", lines);   //Accelerator Pedal Position E   [percent]
+            Read_obd(381, "010D", lines);   //Speed                          [km/h]
+            Read_obd(381, "010C", lines);   //rpm                            [rev/min]
+            Read_obd(381, "0123", lines);   //Fuel Rail Pressure             [kPa] (gauge)
+            Read_obd(381, "012C", lines);   //EGR                            [percent] (target)
+            Read_obd(381, "0105", lines);   //Coolent Temperature            [celcius]
+            Read_obd(381, "0133", lines);   //Barometric Pressure            [kPa] (Absolute)
+            Read_obd(381, "010B", lines);   //Intake Manifold Pressure       [kPa] (Absolute)
+            Read_obd(381, "010F", lines);   //Intake Air Temperature         [celcius]
+            Read_obd(381, "0110", lines);   //Mass air flow                  [grams/sec]
+            Read_obd(381, "0104", lines);   //Calculated Engine Load         [percent]
+            Read_obd(381, "0149", lines);   //Accelerator Pedal Position D   [percent]
+            Read_obd(381, "014A", lines);   //Accelerator Pedal Position E   [percent]
 
         }
 
@@ -189,7 +189,7 @@ namespace ReadOBD
 
                                     }
 
-                                    string docPath = @"C:\Users\saidb\Documents\MATLAB\VirtualDyno\Astra_13_D_dry_0_120_80_uphill\CleanData.txt";
+                                    string docPath = @"C:\Users\saidb\Documents\MATLAB\VirtualDyno\Trax_15_P_dry_0_50_up_down\CleanData.txt";
                                     if (!File.Exists(docPath))
                                     {
                                         if (separate)
